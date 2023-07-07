@@ -1,6 +1,6 @@
 import requests
 import json
-from sense_emu import SenseHat
+from sense_hat import SenseHat
 import time
 
 api_key = 'xxxxxxxxxxxxxxxx'
