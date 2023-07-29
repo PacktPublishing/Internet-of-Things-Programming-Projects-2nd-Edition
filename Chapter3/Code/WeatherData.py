@@ -25,16 +25,18 @@ class WeatherData:
             self.wind_speed = wind["speed"]
     
     def getServoValue(self):
-        temp_factor = (self.temperature*100)/30
-        wind_factor = (self.wind_speed*100)/20
-        servo_value = temp_factor-(wind_factor/20)
-        
-        if(servo_value >= 100):
-            return 100
-        elif (servo_value <= 0):
-            return 0
+        if self.temperature < 0:
+            temp_factor = 0
+        elif self.temperature > 30:
+            temp_factor = 1
         else:
-            return servo_value
+            temp_factor = self.temperature  / 30
+
+        wind_factor = self.wind_speed / 20
+        servo_value = -((temp_factor - (wind_factor / 20)) * 2 - 1)
+        
+        return servo_value
+
     
     def getLEDValue(self):   
         if (self.weather_conditions=='Thunderstorm'):
