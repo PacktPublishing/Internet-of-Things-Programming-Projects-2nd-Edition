@@ -10,7 +10,7 @@ class WeatherData:
     
     def __init__(self, city):
         self.city = city
-        api_key = '5f7a09c03dc707a3e4347c48b3c60535'
+        api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         base_url = "http://api.openweathermap.org/data/2.5/weather"
         complete_url = f"{base_url}?q={self.city}&appid={api_key}&units=metric"
         response = requests.get(complete_url)
