@@ -40,15 +40,13 @@ class WeatherData:
     
     def getLEDValue(self):   
         if (self.weather_conditions=='Thunderstorm'):
-            return 2;
+            return 2
         elif(self.weather_conditions=='Rain'):
             return 1
         else:
             return 0
     
-if __name__=="__main__":
-    
+if __name__=="__main__": 
     weather = WeatherData('Toronto')
     print(weather.getServoValue())
     print(weather.getLEDValue())
-    
