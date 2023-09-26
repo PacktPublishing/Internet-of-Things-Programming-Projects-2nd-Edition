@@ -5,8 +5,8 @@ import _thread
 from umqtt.simple import MQTTClient
 from buzzer import activate_buzzer
 
-SSID = "xxxxxxx"
-PASSWORD = "xxxxxxxx"
+SSID = "xxxxxxxxxx"
+PASSWORD = "xxxxxxxxxxxx"
 MQTT_SERVER = "broker.mqtthq.com"
 MQTT_PORT = 1883
 
@@ -53,7 +53,7 @@ def connect_mqtt(device_id, callback):
             print('Failed to connect to MQTT Server, retrying...')
             utime.sleep(5)
 
-def status():
+def connection_status():
     while True:
         if wlan.isconnected():
             if mqtt_client is not None:
@@ -69,7 +69,7 @@ def status():
             led.off()
             utime.sleep(1)
 
-_thread.start_new_thread(status, ())
+_thread.start_new_thread(connection_status, ())
 connect_wifi()
 connect_mqtt("IoTAlarmSystem", sub_iotalarm)
 mqtt_client.subscribe("IoTAlarm")
