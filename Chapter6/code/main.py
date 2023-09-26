@@ -53,7 +53,7 @@ def connect_mqtt(device_id, callback):
             print('Failed to connect to MQTT Server, retrying...')
             utime.sleep(5)
 
-def blink():
+def status():
     while True:
         if wlan.isconnected():
             if mqtt_client is not None:
@@ -69,7 +69,7 @@ def blink():
             led.off()
             utime.sleep(1)
 
-_thread.start_new_thread(blink, ())
+_thread.start_new_thread(status, ())
 connect_wifi()
 connect_mqtt("IoTAlarmSystem", sub_iotalarm)
 mqtt_client.subscribe("IoTAlarm")
