@@ -1,0 +1,9 @@
+The Sense HAT case, an optional custom accessory, is designed for the Raspberry Pi 5 and 4B. It features prominently in Chapters 1 and 2 of 'Internet of Things Programming Projects Rev 2', which guide users through its application and benefits.
+
+For most parts, a standard FDM 3D printer suffices. However, for the 'stem' parts of the stand — the part with the three rings — a liquid resin 3D printer (e.g., using Syratech Blu engineering-type resin) is recommended for improved layer adhesion and durability.
+
+The hooks should be printed with either a liquid resin 3D printer or placed sideways on the print bed when using an FDM 3D printer to account for layer line adhesion weakness.
+
+The case for the Raspberry Pi 5 is specifically tailored for use with an active cooler and a GPIO extension, ensuring optimal functionality. It maintains a 20mm distance between the Raspberry Pi board and the Sense HAT board, a crucial design consideration for effective operation.
+
+For more information on 3D printing and design please refer to my book "Simplifying 3D printing and design with OpenSCAD" available on Amamzon or the Packt website.
