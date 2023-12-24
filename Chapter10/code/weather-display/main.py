@@ -7,14 +7,14 @@ from indicator import Indicator
 class WeatherDisplay:
     def __init__(self):
         # WiFi Information
-        self.ssid = "Apollo"
-        self.wifi_password = "ad2008-ad2022"
+        self.ssid = "xxxxxx"
+        self.wifi_password = "xxxxxxx"
 
         # MQTT Information
         self.mqtt_server = "driver.cloudmqtt.com"
         self.mqtt_port = 18756
-        self.username = "tvuuvbox"
-        self.mqtt_password = "Nqe3McF21AjF"
+        self.username = "xxxxxxx"
+        self.mqtt_password = "xxxxxxx"
         self.device_id = "WeatherDisplay"
         self.mqtt_topic = "WeatherInfo"
 

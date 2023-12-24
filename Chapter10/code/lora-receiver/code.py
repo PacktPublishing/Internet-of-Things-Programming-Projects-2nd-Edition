@@ -7,8 +7,8 @@ import wifi
 import socketpool
 from adafruit_minimqtt.adafruit_minimqtt import MQTT
 
-WIFI_SSID = 'Apollo'
-WIFI_PASSWORD = 'ad2008-ad2022'
+WIFI_SSID = 'xxxxxxx'
+WIFI_PASSWORD = 'xxxxxxx'
 
 led = digitalio.DigitalInOut(board.GP5)
 led.direction = digitalio.Direction.OUTPUT
@@ -39,8 +39,8 @@ pool = socketpool.SocketPool(wifi.radio)
 
 MQTT_SERVER = "driver.cloudmqtt.com"
 MQTT_PORT = 18756
-USERNAME = "tvuuvbox"
-PASSWORD = "Nqe3McF21AjF"
+USERNAME = "xxxxxxx"
+PASSWORD = "xxxxxxx"
 DEVICE_ID = "LoRaReceiver"
 MQTT_TOPIC = "WeatherInfo"
 
