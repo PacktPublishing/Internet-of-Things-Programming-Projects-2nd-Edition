@@ -63,8 +63,8 @@ led.value = True
 joystick = Joystick()
 
 def send_mqtt_message(x, y, button1, button2):
-    button1_state = 1 if button1 else 0
-    button2_state = 1 if button2 else 0
+    button1_state = True if button1 else False
+    button2_state = True if button2 else False
     message = f'X: {x}, Y: {y}, Button 1: \
               {button1_state}, Button 2: {button2_state}'
     mqtt_client.publish(MQTT_TOPIC, message)
