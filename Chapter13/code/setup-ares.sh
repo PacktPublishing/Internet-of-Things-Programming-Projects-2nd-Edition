@@ -36,13 +36,14 @@ rosdep update
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source /opt/ros/humble/setup.bash
 
-# Install Python 3 and pip3
-echo "Installing Python 3 and pip..."
-apt install -y python3 python3-pip
+# The Python and pip installation is presumed already done in the script
 
-# Install required Python libraries
-echo "Installing required Python libraries for hardware interfacing..."
-pip3 install adafruit-blinka adafruit-circuitpython-vl53l0x RPi.GPIO
+# Update pip to its latest version
+pip3 install --upgrade pip
+
+# Install required Python libraries for the provided script
+echo "Installing additional required Python libraries for the script..."
+pip3 install paho-mqtt pyserial adafruit-blinka adafruit-circuitpython-vl53l0x
 
 # Install raspi-config
 echo "Installing raspi-config for Raspberry Pi configuration..."
