@@ -48,5 +48,15 @@ echo "Adding ROS 2 environment setup to your bashrc..."
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
+# **SSH Setup Starts Here**
+echo "Setting up SSH access..."
+# Install OpenSSH server
+apt-get install -y openssh-server
+# Enable SSH service
+systemctl enable ssh
+# Start SSH service
+systemctl start ssh
+echo "SSH service is enabled and started."
+
 # Setup complete
 echo "Setup complete! Please reboot Raspberry Pi."
