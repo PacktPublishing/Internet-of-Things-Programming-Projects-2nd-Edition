@@ -43,6 +43,18 @@ pip3 install --upgrade pip
 echo "Installing pyserial and paho-mqtt for serial communication and MQTT functionality..."
 pip3 install pyserial paho-mqtt
 
+# Install I2C library for Python
+echo "Installing SMBus for I2C communication..."
+apt install -y python3-smbus
+
+# Install CircuitPython libraries required for VL53L0X
+echo "Installing CircuitPython libraries for VL53L0X..."
+pip3 install adafruit-circuitpython-vl53l0x
+
+# Enable I2C interface
+echo "Enabling I2C interface..."
+raspi-config nonint do_i2c 0
+
 # Install raspi-config
 echo "Installing raspi-config for Raspberry Pi configuration..."
 apt install -y raspi-config
@@ -51,7 +63,7 @@ apt install -y raspi-config
 echo "Installing ROS 2 demo nodes packages..."
 apt install -y ros-humble-demo-nodes-py ros-humble-demo-nodes-cpp
 
-echo "ROS 2 Humble Hawksbill installation, Python libraries for serial communication and MQTT, and raspi-config setup is complete."
+echo "ROS 2 Humble Hawksbill installation, Python libraries for serial communication, MQTT, SMBus for I2C, CircuitPython libraries for VL53L0X, and raspi-config setup is complete."
 
 # Modified instructions to run demo nodes without a GUI
 echo "To run the ROS 2 demo nodes, use the following commands in your terminal:"
