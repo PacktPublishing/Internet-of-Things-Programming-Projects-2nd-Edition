@@ -49,4 +49,4 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 # Setup complete
-echo "Setup complete! Your Raspberry Pi is now ready for I2C, UART projects, GPIO manipulation with CircuitPython, and ROS Humble development."
+echo "Setup complete! Please reboot Raspberry Pi."
