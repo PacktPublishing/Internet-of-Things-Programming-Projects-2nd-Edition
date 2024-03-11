@@ -2,7 +2,7 @@ import serial
 import time
 
 # Open serial connection
-ser = serial.Serial('/dev/ttyACM1', 9600, timeout=1)  # Adjust port and baud rate as needed
+ser = serial.Serial('/dev/serial0', 115200, timeout=1)  # Adjust port and baud rate as needed
 
 def send_message(message):
     ser.write((message + "\n").encode())  # Send message
@@ -15,6 +15,7 @@ def send_message(message):
         send_message(message)  # Resend message if not acknowledged
 
 # Example usage
-send_message("ffffffffffffff")
+send_message("f")
 time.sleep(2)
-send_message("ssssssssssssss")
+send_message("a")
+time.sleep(2)
