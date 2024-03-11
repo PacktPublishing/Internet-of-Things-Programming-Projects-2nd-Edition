@@ -36,14 +36,12 @@ rosdep update
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source /opt/ros/humble/setup.bash
 
-# The Python and pip installation is presumed already done in the script
-
 # Update pip to its latest version
 pip3 install --upgrade pip
 
-# Install required Python libraries for the provided script
-echo "Installing additional required Python libraries for the script..."
-pip3 install paho-mqtt pyserial adafruit-blinka adafruit-circuitpython-vl53l0x
+# Install required Python libraries for serial communication and MQTT
+echo "Installing pyserial and paho-mqtt for serial communication and MQTT functionality..."
+pip3 install pyserial paho-mqtt
 
 # Install raspi-config
 echo "Installing raspi-config for Raspberry Pi configuration..."
@@ -53,9 +51,9 @@ apt install -y raspi-config
 echo "Installing ROS 2 demo nodes packages..."
 apt install -y ros-humble-demo-nodes-py ros-humble-demo-nodes-cpp
 
-echo "ROS 2 Humble Hawksbill installation, Python libraries, and raspi-config setup is complete."
+echo "ROS 2 Humble Hawksbill installation, Python libraries for serial communication and MQTT, and raspi-config setup is complete."
 
-# Instructions to run demo nodes
-echo "To run the ROS 2 demo nodes, open two new terminal sessions and execute the following commands:"
-echo "For the C++ talker node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_cpp talker > /dev/null 2>&1 &"
-echo "For the Python listener node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_py listener"
+# Modified instructions to run demo nodes without a GUI
+echo "To run the ROS 2 demo nodes, use the following commands in your terminal:"
+echo "Run the C++ talker node in the background: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_cpp talker > /dev/null 2>&1 &"
+echo "Then, run the Python listener node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_py listener"
