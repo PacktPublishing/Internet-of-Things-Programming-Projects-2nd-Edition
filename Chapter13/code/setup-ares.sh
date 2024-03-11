@@ -57,5 +57,5 @@ echo "ROS 2 Humble Hawksbill installation, Python libraries, and raspi-config se
 
 # Instructions to run demo nodes
 echo "To run the ROS 2 demo nodes, open two new terminal sessions and execute the following commands:"
-echo "For the C++ talker node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_cpp talker"
+echo "For the C++ talker node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_cpp talker > /dev/null 2>&1 &"
 echo "For the Python listener node: source /opt/ros/humble/setup.bash && ros2 run demo_nodes_py listener"
