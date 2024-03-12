@@ -16,10 +16,17 @@ apt-get update && apt-get upgrade -y
 echo "Installing necessary system utilities..."
 apt-get install -y python3-pip python3-smbus i2c-tools git
 
-# Enable I2C and UART
-echo "Enabling I2C and UART interfaces..."
-raspi-config nonint do_i2c 0
-raspi-config nonint do_serial 0
+# Enable I2C
+echo "Enabling I2C interface..."
+modprobe i2c-dev
+echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
+
+# I2C and UART are typically enabled by default on Ubuntu 22.04 for Raspberry Pi,
+# but you might need to manually enable them in /boot/firmware/usercfg.txt if not.
+# Uncomment and edit the following lines as needed:
+#echo "dtparam=i2c_arm=on" >> /boot/firmware/usercfg.txt
+#echo "dtparam=spi=on" >> /boot/firmware/usercfg.txt
+#echo "enable_uart=1" >> /boot/firmware/usercfg.txt
 
 # Install Adafruit Blinka for CircuitPython libraries support
 echo "Installing Adafruit Blinka and other Python libraries..."
@@ -38,7 +45,7 @@ apt install -y ros-humble-ros-base
 echo "Installing Colcon build system..."
 apt install -y python3-colcon-common-extensions
 
-# ** Install rosdep **
+# Install rosdep
 echo "Installing rosdep..."
 apt install -y python3-rosdep
 
@@ -50,12 +57,11 @@ rosdep update
 # Environment setup
 echo "Adding ROS 2 environment setup to your bashrc..."
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-# Source the environment for this session
+# Source the environment for this script session to use ROS commands
 source /opt/ros/humble/setup.bash
 
-# **Display the IP address**
-echo "Use SSH on the following IP address to login to this Raspberry Pi:"
-hostname -I
-
 # Setup complete
-echo "Setup complete! Please reboot Raspberry Pi."
+echo "Setup complete! Please reboot your system."
+
+echo "Use SSH to login to this Raspberry Pi. The IP address is:"
+hostname -I
