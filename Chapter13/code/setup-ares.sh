@@ -52,7 +52,13 @@ apt install -y python3-rosdep
 # Initialize rosdep
 echo "Initializing rosdep..."
 rosdep init
-rosdep update
+echo "Fixing rosdep permissions..."
+rosdep fix-permissions
+
+# Drop privileges for rosdep update
+# Note: The script assumes it's being run as root; this step temporarily drops root privileges for 'rosdep update'
+sudo -u $SUDO_USER rosdep update
+
 
 # Environment setup
 echo "Adding ROS 2 environment setup to your bashrc..."
