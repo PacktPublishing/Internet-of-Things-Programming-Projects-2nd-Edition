@@ -14,7 +14,7 @@ apt-get update && apt-get upgrade -y
 
 # Install necessary system utilities
 echo "Installing necessary system utilities..."
-apt-get install -y python3-pip python3-smbus i2c-tools git
+apt-get install -y python3-pip python3-smbus i2c-tools
 
 # Enable I2C
 echo "Enabling I2C interface..."
