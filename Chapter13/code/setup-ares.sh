@@ -48,5 +48,9 @@ echo "Adding ROS 2 environment setup to your bashrc..."
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
+# **Display the IP address**
+echo "Use SSH on the following IP address to login to this Raspberry Pi:"
+hostname -I
+
 # Setup complete
 echo "Setup complete! Please reboot Raspberry Pi."
