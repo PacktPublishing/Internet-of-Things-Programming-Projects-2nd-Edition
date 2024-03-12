@@ -38,6 +38,10 @@ apt install -y ros-humble-ros-base
 echo "Installing Colcon build system..."
 apt install -y python3-colcon-common-extensions
 
+# ** Install rosdep **
+echo "Installing rosdep..."
+apt install -y python3-rosdep
+
 # Initialize rosdep
 echo "Initializing rosdep..."
 rosdep init
@@ -46,7 +50,8 @@ rosdep update
 # Environment setup
 echo "Adding ROS 2 environment setup to your bashrc..."
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-source ~/.bashrc
+# Source the environment for this session
+source /opt/ros/humble/setup.bash
 
 # **Display the IP address**
 echo "Use SSH on the following IP address to login to this Raspberry Pi:"
