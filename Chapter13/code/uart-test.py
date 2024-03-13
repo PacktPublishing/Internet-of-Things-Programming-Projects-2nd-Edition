@@ -1,10 +1,9 @@
 import serial
 import time
 
-# Open serial connection
-ser = serial.Serial('/dev/serial0', 115200, timeout=1)  # Adjust port and baud rate as needed
+ser = serial.Serial('/dev/serial0', 115200, timeout=1)
 
 def send_message(message):
-    ser.write((message + "\n").encode())  # Send message
+    ser.write((message + "\n").encode())
     
 send_message("a")
