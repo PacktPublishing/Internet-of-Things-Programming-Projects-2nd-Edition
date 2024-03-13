@@ -1,4 +1,5 @@
 from PicoRobotics import KitronikPicoRobotics
+import time
 
 class Wheel:
     def __init__(self, speed):
@@ -27,16 +28,16 @@ class Wheel:
         self.motor_board.motorOff(2)
 
 #Test code
-wheel = Wheel()
-wheel.forward()
-time.sleep(1)
-wheel.reverse()
-time.sleep(1)
-wheel.turn_right()
-time.sleep(1)
-wheel.turn_left()
-time.sleep(1)
-wheel.stop()
+#wheel = Wheel(20)
+#wheel.forward()
+#time.sleep(10)
+#wheel.reverse()
+#time.sleep(1)
+#wheel.turn_right()
+#time.sleep(1)
+#wheel.turn_left()
+#time.sleep(1)
+#wheel.stop()
 
 
  

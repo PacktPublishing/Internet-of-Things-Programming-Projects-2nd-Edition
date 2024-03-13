@@ -33,5 +33,5 @@ class Alarm:
             time.sleep(blink_rate)
 
 # Example usage:
-#alarm = Alarm(buzzer_pin=board.GP1, led_pin1=board.GP0, led_pin2=board.GP2)  # Initialize with the pins connected to the buzzer and LEDs
-#alarm.activate_alarm(10)  # Activate the alarm for 5 cycles
+#alarm = Alarm(buzzer_pin=board.GP1, led_pin1=board.GP0, led_pin2=board.GP2)
+#alarm.activate_alarm(10)
