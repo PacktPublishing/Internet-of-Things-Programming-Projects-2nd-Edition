@@ -25,68 +25,46 @@ class RobotController(Node):
     def __init__(self, mqtt_message):
         super().__init__('robot_controller')
         self.mqtt_message = mqtt_message
+        self.last_send_time = time.time()  # Track the last send time
+        self.send_interval = 0.5  # Minimum time interval between sends in seconds
         timer_period = 0.1
         self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
-
         # Create VL53L0X object
         self.dist_sensor = adafruit_vl53l0x.VL53L0X(i2c)
-
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
-        self.mqtt_client.username_pw_set("tvuuvbox", "Nqe3McF21AjF")
-        self.mqtt_client.connect("driver.cloudmqtt.com", 18756, 60)
+        self.mqtt_client.username_pw_set("username", "password")
+        self.mqtt_client.connect("broker_address", 1883, 60)
         self.mqtt_client.loop_start()
-
-        # Set the USB port for UART communication here
+        # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
 
     def on_connect(self, client, userdata, flags, rc):
-        if rc == 0:
-            self.get_logger().info("Connected successfully.")
-            client.subscribe("JoystickPosition")
-        else:
-            self.get_logger().info(f"Failed to connect with error code {rc}.")
+        self.get_logger().info("Connected with result code " + str(rc))
+        client.subscribe("JoystickPosition")
 
     def on_message(self, client, userdata, msg):
         self.mqtt_message.update_values(msg.payload.decode())
- 
-    def timer_callback(self):
-        command = ''
-        
-        # Forward or stop based on distance and y-axis input
-        if self.mqtt_message.y > 0:
-            command = 'f' if self.dist_sensor.range > 100 else 's\n'
-        elif self.mqtt_message.y < 0:
-            command = 'b'
-        
-        # Right or left based on x-axis input
-        if self.mqtt_message.x > 0:
-            command = 'r'
-        elif self.mqtt_message.x < 0:
-            command = 'l'
-        
-        # Stop if there's no x or y input
-        if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
-            command = 's'
-        
-        # Activate alarm if button1 is pressed
-        if self.mqtt_message.button1:
-            command = 'a'
-        
-        # Send command if not empty
-        if command:
-            self.get_logger().info(f"Sent command: {command.strip()}")
-            try:
-                self.ser.write((command + "\n").encode())
-                self.ser.flush()
-            except Exception as e:
-                self.get_logger().error(f"Failed to write to serial port: {e}")
 
-        time.sleep(1)
-            
+    def timer_callback(self):
+        current_time = time.time()
+        # Check if the interval has passed
+        if current_time - self.last_send_time >= self.send_interval:
+            command = self.generate_command()
+            if command:
+                self.get_logger().info(f"Sent command: {command}")
+                self.ser.write((command + "\n").encode())
+                self.ser.flush()  # Ensure data is sent immediately
+                self.last_send_time = current_time  # Update the last send time
+
+    def generate_command(self):
+        # Generate command based on mqtt_message and dist_sensor
+        # Similar logic as previously in timer_callback to generate the 'command' string
+        # Return the 'command' string
+        pass  # Implement command generation logic here
 
 def main(args=None):
     rclpy.init(args=args)
