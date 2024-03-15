@@ -78,6 +78,7 @@ class RobotController(Node):
         # Send command if not empty
         if command:
             self.get_logger().info(f"Sent command: {command.strip()}")
+            print("Writing to the serial port")
             self.ser.write(command.encode())
 
             
