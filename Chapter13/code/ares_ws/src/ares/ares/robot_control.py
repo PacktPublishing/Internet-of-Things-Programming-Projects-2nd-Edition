@@ -40,7 +40,7 @@ class RobotController(Node):
         self.mqtt_client.loop_start()
 
         # Set the USB port for UART communication here
-        self.serial_port = serial.Serial('/dev/ttyACM1', 9600, timeout=1)  # Adjust the port as needed
+        self.serial_port = serial.Serial('/dev/serial0', 115200, timeout=1)  # Adjust the port as needed
 
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
