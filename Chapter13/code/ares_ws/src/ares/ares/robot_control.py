@@ -57,29 +57,29 @@ class RobotController(Node):
         
         # Forward or stop based on distance and y-axis input
         if self.mqtt_message.y > 0:
-            command = 'f\n' if self.dist_sensor.range > 100 else 's\n'
+            command = 'f' if self.dist_sensor.range > 100 else 's\n'
         elif self.mqtt_message.y < 0:
-            command = 'b\n'
+            command = 'b'
         
         # Right or left based on x-axis input
         if self.mqtt_message.x > 0:
-            command = 'r\n'
+            command = 'r'
         elif self.mqtt_message.x < 0:
-            command = 'l\n'
+            command = 'l'
         
         # Stop if there's no x or y input
         if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
-            command = 's\n'
+            command = 's'
         
         # Activate alarm if button1 is pressed
         if self.mqtt_message.button1:
-            command = 'a\n'
+            command = 'a'
         
         # Send command if not empty
         if command:
             self.get_logger().info(f"Sent command: {command.strip()}")
             print("Writing to the serial port")
-            self.ser.write(command.encode())
+            self.ser.write((command + "\n").encode())
 
             
 
