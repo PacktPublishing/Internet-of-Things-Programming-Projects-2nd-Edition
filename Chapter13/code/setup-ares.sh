@@ -21,6 +21,10 @@ echo "Enabling I2C interface..."
 modprobe i2c-dev
 echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
 
+# Give permission to /dev/serial0 for all users
+echo "Granting permission to /dev/serial0 for all users..."
+chmod a+rw /dev/serial0
+
 # I2C and UART are typically enabled by default on Ubuntu 22.04 for Raspberry Pi,
 # but you might need to manually enable them in /boot/firmware/usercfg.txt if not.
 # Uncomment and edit the following lines as needed:
