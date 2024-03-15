@@ -5,6 +5,7 @@ import serial
 import board
 import busio
 import adafruit_vl53l0x
+import time
 
 class MQTTMessage:
     def __init__(self):
@@ -84,7 +85,7 @@ class RobotController(Node):
             except Exception as e:
                 self.get_logger().error(f"Failed to write to serial port: {e}")
 
-
+        time.sleep(1)
             
 
 def main(args=None):

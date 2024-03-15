@@ -1,7 +1,6 @@
 import board
 import busio
 import time
-from PicoRobotics import KitronikPicoRobotics
 from wheel import Wheel
 from device_alarm import Alarm
 
