@@ -29,9 +29,16 @@ echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
 #echo "enable_uart=1" >> /boot/firmware/usercfg.txt
 
 # Install Adafruit Blinka for CircuitPython libraries support
-echo "Installing Adafruit Blinka, paho-mqtt, and other Python libraries..."
+echo "Installing Adafruit Blinka and other Python libraries..."
 pip3 install --upgrade pip
-pip3 install Adafruit-Blinka adafruit-circuitpython-vl53l0x pyserial RPi.GPIO paho-mqtt
+pip3 install Adafruit-Blinka adafruit-circuitpython-vl53l0x pyserial RPi.GPIO
+
+# Ensure the correct version of paho-mqtt is installed
+echo "Installing paho-mqtt version 1.5.1..."
+pip3 install paho-mqtt==1.5.1
+
+# Continue with the installation of ROS, colcon, and other components...
+
 
 # Install ROS Humble Hawksbill
 echo "Installing ROS Humble Hawksbill and required packages..."
