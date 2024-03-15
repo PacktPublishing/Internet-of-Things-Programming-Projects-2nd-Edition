@@ -80,6 +80,7 @@ class RobotController(Node):
             self.get_logger().info(f"Sent command: {command.strip()}")
             print("Writing to the serial port")
             self.ser.write((command + "\n").encode())
+            self.ser.flush()  # Ensure data is sent immediately
 
             
 
