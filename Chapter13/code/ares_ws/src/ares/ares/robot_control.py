@@ -78,9 +78,12 @@ class RobotController(Node):
         # Send command if not empty
         if command:
             self.get_logger().info(f"Sent command: {command.strip()}")
-            print("Writing to the serial port")
-            self.ser.write((command + "\n").encode())
-            self.ser.flush()  # Ensure data is sent immediately
+            try:
+                self.ser.write((command + "\n").encode())
+                self.ser.flush()
+            except Exception as e:
+                self.get_logger().error(f"Failed to write to serial port: {e}")
+
 
             
 
