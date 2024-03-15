@@ -59,23 +59,23 @@ class RobotController(Node):
         if self.mqtt_message.y > 0:
             
             if self.dist_sensor.range > 100:
-                command = 'ffffffffff\n'
+                command = 'f\n'
             else:
-                command = 'ssssssssss\n'
+                command = 's\n'
                 
         elif self.mqtt_message.y < 0:
-            command = 'bbbbbbbbbb\n'
+            command = 'b\n'
             
         if self.mqtt_message.x > 0:
-            command = 'rrrrrrrrrr\n'
+            command = 'r\n'
         elif self.mqtt_message.x < 0:
-            command = 'llllllllll\n'
+            command = 'l\n'
             
         if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
-            command = 'ssssssssss\n'
+            command = 's\n'
             
         if self.mqtt_message.button1:
-        	command = 'aaaaaaaaaa\n'
+        	command = 'a\n'
         
         if command:
             self.serial_port.write(command.encode())
