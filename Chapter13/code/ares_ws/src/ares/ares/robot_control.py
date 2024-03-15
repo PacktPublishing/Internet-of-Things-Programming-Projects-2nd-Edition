@@ -40,7 +40,7 @@ class RobotController(Node):
         self.mqtt_client.loop_start()
 
         # Set the USB port for UART communication here
-        self.serial_port = serial.Serial('/dev/serial0', 115200, timeout=1)  # Adjust the port as needed
+        self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
 
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
@@ -53,33 +53,33 @@ class RobotController(Node):
         self.mqtt_message.update_values(msg.payload.decode())
  
     def timer_callback(self):
-        
         command = ''
         
+        # Forward or stop based on distance and y-axis input
         if self.mqtt_message.y > 0:
-            
-            if self.dist_sensor.range > 100:
-                command = 'f\n'
-            else:
-                command = 's\n'
-                
+            command = 'f\n' if self.dist_sensor.range > 100 else 's\n'
         elif self.mqtt_message.y < 0:
             command = 'b\n'
-            
+        
+        # Right or left based on x-axis input
         if self.mqtt_message.x > 0:
             command = 'r\n'
         elif self.mqtt_message.x < 0:
             command = 'l\n'
-            
+        
+        # Stop if there's no x or y input
         if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
             command = 's\n'
-            
-        if self.mqtt_message.button1:
-        	command = 'a\n'
         
+        # Activate alarm if button1 is pressed
+        if self.mqtt_message.button1:
+            command = 'a\n'
+        
+        # Send command if not empty
         if command:
-            self.serial_port.write(command.encode())
             self.get_logger().info(f"Sent command: {command.strip()}")
+            self.ser.write(command.encode())
+
             
 
 def main(args=None):
