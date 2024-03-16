@@ -36,8 +36,8 @@ class RobotController(Node):
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
-        self.mqtt_client.username_pw_set("username", "password")
-        self.mqtt_client.connect("broker_address", 1883, 60)
+        self.mqtt_client.username_pw_set("tvuuvbox", "Nqe3McF21AjF")
+        self.mqtt_client.connect("driver.cloudmqtt.com", 18756, 60)
         self.mqtt_client.loop_start()
         # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
