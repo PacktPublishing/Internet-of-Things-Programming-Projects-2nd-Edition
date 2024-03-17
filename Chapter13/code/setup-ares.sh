@@ -22,13 +22,10 @@ modprobe i2c-dev
 echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
 
 
-# Setup udev rule for /dev/serial0 permissions
-echo "Setting up udev rule for persistent /dev/serial0 permissions..."
-echo 'SUBSYSTEM=="tty", ATTRS{device}=="/dev/serial0", MODE="0666"' > /etc/udev/rules.d/99-serial.rules
+# Enable serial0 access for all users
+# Append command to .bashrc to adjust serial port permissions on login
+echo "sudo chmod a+rw /dev/serial0" >> /home/$USERNAME/.bashrc
 
-# Reload udev rules and trigger them
-udevadm control --reload-rules
-udevadm trigger
 
 
 # Install Adafruit Blinka for CircuitPython libraries support
