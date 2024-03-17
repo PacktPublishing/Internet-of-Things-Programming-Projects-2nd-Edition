@@ -21,18 +21,15 @@ echo "Enabling I2C interface..."
 modprobe i2c-dev
 echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
 
-# Setting permissions and sourcing ROS environment in .bashrc
-USERNAME=$(logname)  # Get the actual username of the user who started the script
-echo "Setting up user permissions and ROS environment for $USERNAME..."
 
-# Add user to the dialout group for serial port access
-usermod -a -G dialout $USERNAME
+# Setup udev rule for /dev/serial0 permissions
+echo "Setting up udev rule for persistent /dev/serial0 permissions..."
+echo 'SUBSYSTEM=="tty", ATTRS{device}=="/dev/serial0", MODE="0666"' > /etc/udev/rules.d/99-serial.rules
 
-# Automatically source ROS environment on login
-echo "source /opt/ros/humble/setup.bash" >> /home/$USERNAME/.bashrc
+# Reload udev rules and trigger them
+udevadm control --reload-rules
+udevadm trigger
 
-# Informing the need for reboot for group changes to take effect
-echo "Please note: You will need to reboot for serial port permissions to take effect."
 
 # Install Adafruit Blinka for CircuitPython libraries support
 echo "Installing Adafruit Blinka and other Python libraries..."
@@ -42,8 +39,6 @@ pip3 install Adafruit-Blinka adafruit-circuitpython-vl53l0x pyserial RPi.GPIO
 # Ensure the correct version of paho-mqtt is installed
 echo "Installing paho-mqtt version 1.5.1..."
 pip3 install paho-mqtt==1.5.1
-
-# Continue with the installation of ROS, colcon, and other components...
 
 
 # Install ROS Humble Hawksbill
@@ -72,12 +67,6 @@ rosdep fix-permissions
 # Note: The script assumes it's being run as root; this step temporarily drops root privileges for 'rosdep update'
 sudo -u $SUDO_USER rosdep update
 
-
-# Environment setup
-echo "Adding ROS 2 environment setup to your bashrc..."
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-# Source the environment for this script session to use ROS commands
-source /opt/ros/humble/setup.bash
 
 # Setup complete
 echo "Setup complete! Please reboot your system."
