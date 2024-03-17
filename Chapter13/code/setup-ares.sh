@@ -21,16 +21,18 @@ echo "Enabling I2C interface..."
 modprobe i2c-dev
 echo "i2c-dev" | tee /etc/modules-load.d/i2c-dev.conf
 
-# Give permission to /dev/serial0 for all users
-echo "Granting permission to /dev/serial0 for all users..."
-chmod a+rw /dev/serial0
+# Setting permissions and sourcing ROS environment in .bashrc
+USERNAME=$(logname)  # Get the actual username of the user who started the script
+echo "Setting up user permissions and ROS environment for $USERNAME..."
 
-# I2C and UART are typically enabled by default on Ubuntu 22.04 for Raspberry Pi,
-# but you might need to manually enable them in /boot/firmware/usercfg.txt if not.
-# Uncomment and edit the following lines as needed:
-#echo "dtparam=i2c_arm=on" >> /boot/firmware/usercfg.txt
-#echo "dtparam=spi=on" >> /boot/firmware/usercfg.txt
-#echo "enable_uart=1" >> /boot/firmware/usercfg.txt
+# Add user to the dialout group for serial port access
+usermod -a -G dialout $USERNAME
+
+# Automatically source ROS environment on login
+echo "source /opt/ros/humble/setup.bash" >> /home/$USERNAME/.bashrc
+
+# Informing the need for reboot for group changes to take effect
+echo "Please note: You will need to reboot for serial port permissions to take effect."
 
 # Install Adafruit Blinka for CircuitPython libraries support
 echo "Installing Adafruit Blinka and other Python libraries..."
