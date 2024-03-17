@@ -21,13 +21,13 @@ class Alarm:
         
         for _ in range(num_of_times):
             # Buzzer on and both LEDs on
-            self.buzzer.duty_cycle = 32768  # 50% duty cycle
+            #self.buzzer.duty_cycle = 32768  # 50% duty cycle
             self.led1.value = True
             self.led2.value = True
             time.sleep(blink_rate)
             
             # Buzzer off and both LEDs off
-            self.buzzer.duty_cycle = 0
+            #self.buzzer.duty_cycle = 0
             self.led1.value = False
             self.led2.value = False
             time.sleep(blink_rate)

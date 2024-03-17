@@ -4,8 +4,7 @@ import time
 from wheel import Wheel
 from device_alarm import Alarm
 
-robotics_board = KitronikPicoRobotics()
-wheel = Wheel(robotics_board, 20)
+wheel = Wheel(20)
 alarm = Alarm()
 uart = busio.UART(board.GP4, board.GP5, baudrate=115200)
 
