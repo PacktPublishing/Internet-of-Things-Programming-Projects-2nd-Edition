@@ -26,7 +26,7 @@ class RobotController(Node):
     def __init__(self, mqtt_message):
         super().__init__('robot_controller')
         self.mqtt_message = mqtt_message
-        timer_period = 0.1
+        timer_period = 2
         self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
