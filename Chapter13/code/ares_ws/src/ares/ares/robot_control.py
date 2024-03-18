@@ -49,6 +49,7 @@ class RobotController(Node):
 
         # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
+        self.last_command_sent = ""
 
     def on_connect(self, client, userdata, flags, rc):
         self.get_logger().info(f"Connected with result code {rc}")
@@ -58,11 +59,17 @@ class RobotController(Node):
         self.mqtt_message.update_values(msg.payload.decode())
 
     def send_message(self, command):
+        if command.strip() == 's' and self.last_command_sent == 's':
+            print("Skip sending 's' command to avoid sending it two times in a row")
+            return  # Skip sending the command
+       
         framed_command = f"<{command}>\n"  # Frame command with start and end markers
         print(f"Sending framed command: {framed_command.strip()}")
         self.ser.write(framed_command.encode())  # Send the framed command
         self.ack_received = False  # Reset ACK status awaiting next ACK.
         self.get_logger().info(f"Sent command: {command.strip()}")
+
+        self.last_command_sent = command.strip()
 
     def timer_callback(self):
         print ("timer_callback function")
