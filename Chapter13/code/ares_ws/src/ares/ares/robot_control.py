@@ -57,6 +57,7 @@ class RobotController(Node):
 
     def send_message(self, command):
         if self.ack_received:
+            print("sending message now")
             self.ser.write(command.encode())
             time.sleep(1)
             self.ser.flush()
@@ -92,6 +93,9 @@ class RobotController(Node):
         # Activate alarm if button1 is pressed
         if self.mqtt_message.button1:
             command = 'a'
+
+        command - 'a'   #test
+
         return command + '\n'
 
 def main(args=None):
