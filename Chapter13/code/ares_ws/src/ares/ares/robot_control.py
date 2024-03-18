@@ -62,10 +62,30 @@ class RobotController(Node):
                 self.last_send_time = current_time  # Update the last send time
 
     def generate_command(self):
-        # Generate command based on mqtt_message and dist_sensor
-        # Similar logic as previously in timer_callback to generate the 'command' string
-        # Return the 'command' string
-        pass  # Implement command generation logic here
+        command = ''
+
+        # Forward or stop based on distance and y-axis input
+        if self.mqtt_message.y > 0:
+            command = 'f' if self.dist_sensor.range > 100 else 's'
+        elif self.mqtt_message.y < 0:
+            command = 'b'
+
+        # Right or left based on x-axis input
+        if self.mqtt_message.x > 0:
+            command = 'r'
+        elif self.mqtt_message.x < 0:
+            command = 'l'
+
+        # Stop if there's no x or y input
+        if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
+            command = 's'
+
+        # Activate alarm if button1 is pressed
+        if self.mqtt_message.button1:
+            command = 'a'
+
+        return command + '\n'  # Append newline for consistent command termination
+
 
 def main(args=None):
     rclpy.init(args=args)
