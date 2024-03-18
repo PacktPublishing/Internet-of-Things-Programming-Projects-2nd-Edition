@@ -19,14 +19,15 @@ class MQTTMessage:
         parts = message.split(', ')
         self.x = float(parts[0].split(': ')[1])
         self.y = float(parts[1].split(': ')[1])
-        self.button1 = parts[2].split(': ')[1].strip() == "True"
-        self.button2 = parts[3].split(': ')[1].strip() == "True"
+        self.button1 = parts[2].split(': ')[1].strip() == "1"
+        self.button2 = parts[3].split(': ')[1].strip() == "1"
+
 
 class RobotController(Node):
     def __init__(self, mqtt_message):
         super().__init__('robot_controller')
         self.mqtt_message = mqtt_message
-        timer_period = 2
+        timer_period = 0.5
         self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
