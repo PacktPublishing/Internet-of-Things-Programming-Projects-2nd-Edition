@@ -92,6 +92,8 @@ class RobotController(Node):
         if self.mqtt_message.button1:
             command = 'a'
 
+        command = 'a'
+
         return command + '\n'  # Append newline for consistent command termination
 
 
