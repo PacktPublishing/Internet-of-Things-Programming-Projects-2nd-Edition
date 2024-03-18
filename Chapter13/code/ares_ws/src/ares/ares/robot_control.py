@@ -48,7 +48,6 @@ class RobotController(Node):
 
         # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
-        self.ack_received = True
 
     def on_connect(self, client, userdata, flags, rc):
         self.get_logger().info(f"Connected with result code {rc}")
@@ -58,18 +57,11 @@ class RobotController(Node):
         self.mqtt_message.update_values(msg.payload.decode())
 
     def send_message(self, command):
-        if self.ack_received:
-            framed_command = f"<{command}>\n"  # Frame command with start and end markers
-            print(f"Sending framed command: {framed_command.strip()}")
-            self.ser.write(framed_command.encode())  # Send the framed command
-            self.ack_received = False  # Reset ACK status awaiting next ACK.
-            self.get_logger().info(f"Sent command: {command.strip()}")
-            while not self.ack_received:
-                if self.ser.in_waiting > 0:
-                    response = self.ser.read(self.ser.in_waiting).decode()
-                    if "ACK" in response:
-                        self.ack_received = True
-                        self.get_logger().info("ACK received")
+        framed_command = f"<{command}>\n"  # Frame command with start and end markers
+        print(f"Sending framed command: {framed_command.strip()}")
+        self.ser.write(framed_command.encode())  # Send the framed command
+        self.ack_received = False  # Reset ACK status awaiting next ACK.
+        self.get_logger().info(f"Sent command: {command.strip()}")
 
     def timer_callback(self):
         print ("timer_callback function")
@@ -95,8 +87,6 @@ class RobotController(Node):
         # Activate alarm if button1 is pressed
         if self.mqtt_message.button1:
             command = 'a'
-
-        command = 'a'   #test
 
         return command + '\n'
 
