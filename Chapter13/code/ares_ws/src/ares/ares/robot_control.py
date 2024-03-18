@@ -57,6 +57,7 @@ class RobotController(Node):
 
     def send_message(self, command):
         if self.ack_received:
+            time.sleep(1)
             self.ser.write(command.encode())
             self.ser.flush()
             self.ack_received = False  # Reset ACK status awaiting next ACK.
