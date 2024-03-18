@@ -28,7 +28,7 @@ class RobotController(Node):
         self.mqtt_message = mqtt_message
         self.last_send_time = time.time()  # Track the last send time
         self.send_interval = 0.5  # Minimum time interval between sends in seconds
-        timer_period = 0.1
+        timer_period = 1
         self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
