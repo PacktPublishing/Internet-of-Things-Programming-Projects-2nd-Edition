@@ -6,6 +6,7 @@ import board
 import busio
 import adafruit_vl53l0x
 import time
+import subprocess
 
 class MQTTMessage:
     def __init__(self):
@@ -75,4 +76,12 @@ def main(args=None):
     rclpy.shutdown()
 
 if __name__ == '__main__':
+    # Embedding the admin password (not recommended for production use)
+    password = 'oFc2327'
+    command = 'chmod a+rw /dev/serial0'
+
+    # Using echo to send the password to sudo -S
+    subprocess.run(f'echo {password} | sudo -S {command}', shell=True, check=True)
+
+
     main()
