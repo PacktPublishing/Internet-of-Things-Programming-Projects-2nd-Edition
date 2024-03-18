@@ -26,10 +26,6 @@ class RobotController(Node):
     def __init__(self, mqtt_message):
         super().__init__('robot_controller')
         self.mqtt_message = mqtt_message
-        self.last_send_time = time.time()  # Track the last send time
-        self.send_interval = 0.5  # Minimum time interval between sends in seconds
-        timer_period = 1
-        self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
         # Create VL53L0X object
@@ -50,52 +46,52 @@ class RobotController(Node):
 
         # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
+        self.ack_received = True
 
     def on_connect(self, client, userdata, flags, rc):
-        self.get_logger().info("Connected with result code " + str(rc))
+        self.get_logger().info(f"Connected with result code {rc}")
         client.subscribe("JoystickPosition")
 
     def on_message(self, client, userdata, msg):
         self.mqtt_message.update_values(msg.payload.decode())
 
+    def send_message(self, command):
+        if self.ack_received:
+            self.ser.write(command.encode())
+            self.ser.flush()
+            self.ack_received = False  # Reset ACK status awaiting next ACK.
+            self.get_logger().info(f"Sent command: {command.strip()}")
+            while not self.ack_received:
+                if self.ser.in_waiting > 0:
+                    response = self.ser.read(self.ser.in_waiting).decode()
+                    if "ACK" in response:
+                        self.ack_received = True
+                        self.get_logger().info("ACK received")
+
     def timer_callback(self):
-        current_time = time.time()
-        # Check if the interval has passed
-        if current_time - self.last_send_time >= self.send_interval:
-            command = self.generate_command()
-            if command:
-                self.get_logger().info(f"Sent command: {command}")
-                self.ser.write((command + "\n").encode())
-                self.ser.flush()  # Ensure data is sent immediately
-                self.last_send_time = current_time  # Update the last send time
+        command = self.generate_command()
+        if command:
+            self.send_message(command)
 
     def generate_command(self):
         command = ''
-
         # Forward or stop based on distance and y-axis input
         if self.mqtt_message.y > 0:
             command = 'f' if self.dist_sensor.range > 100 else 's'
         elif self.mqtt_message.y < 0:
             command = 'b'
-
         # Right or left based on x-axis input
         if self.mqtt_message.x > 0:
             command = 'r'
         elif self.mqtt_message.x < 0:
             command = 'l'
-
         # Stop if there's no x or y input
         if self.mqtt_message.y == 0 and self.mqtt_message.x == 0:
             command = 's'
-
         # Activate alarm if button1 is pressed
         if self.mqtt_message.button1:
             command = 'a'
-
-        command = 'a'
-
-        return command + '\n'  # Append newline for consistent command termination
-
+        return command + '\n'
 
 def main(args=None):
     rclpy.init(args=args)
