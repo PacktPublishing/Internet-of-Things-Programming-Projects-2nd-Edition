@@ -71,6 +71,7 @@ class RobotController(Node):
                         self.get_logger().info("ACK received")
 
     def timer_callback(self):
+        print ("timer_callback function")
         command = self.generate_command()
         if command:
             self.send_message(command)
