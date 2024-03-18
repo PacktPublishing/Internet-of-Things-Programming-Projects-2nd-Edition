@@ -59,9 +59,9 @@ class RobotController(Node):
 
     def send_message(self, command):
         if self.ack_received:
-            print("sending message now")
-            self.ser.write(command.encode())
-            self.ser.flush()
+            framed_command = f"<{command}>\n"  # Frame command with start and end markers
+            print(f"Sending framed command: {framed_command.strip()}")
+            self.ser.write(framed_command.encode())  # Send the framed command
             self.ack_received = False  # Reset ACK status awaiting next ACK.
             self.get_logger().info(f"Sent command: {command.strip()}")
             while not self.ack_received:
@@ -96,7 +96,7 @@ class RobotController(Node):
         if self.mqtt_message.button1:
             command = 'a'
 
-        command - 'a'   #test
+        command = 'a'   #test
 
         return command + '\n'
 
