@@ -40,6 +40,14 @@ class RobotController(Node):
         self.mqtt_client.username_pw_set("tvuuvbox", "Nqe3McF21AjF")
         self.mqtt_client.connect("driver.cloudmqtt.com", 18756, 60)
         self.mqtt_client.loop_start()
+        
+        # Embedding the admin password (not recommended for production use)
+        password = 'oFc2327'
+        command = 'chmod a+rw /dev/serial0'
+
+        # Using echo to send the password to sudo -S
+        subprocess.run(f'echo {password} | sudo -S {command}', shell=True, check=True)
+
         # Set the USB port for UART communication
         self.ser = serial.Serial('/dev/serial0', 115200, timeout=1)
 
@@ -96,12 +104,4 @@ def main(args=None):
     rclpy.shutdown()
 
 if __name__ == '__main__':
-    # Embedding the admin password (not recommended for production use)
-    password = 'oFc2327'
-    command = 'chmod a+rw /dev/serial0'
-
-    # Using echo to send the password to sudo -S
-    subprocess.run(f'echo {password} | sudo -S {command}', shell=True, check=True)
-
-
     main()
