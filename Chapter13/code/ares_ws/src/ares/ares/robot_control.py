@@ -26,6 +26,8 @@ class RobotController(Node):
     def __init__(self, mqtt_message):
         super().__init__('robot_controller')
         self.mqtt_message = mqtt_message
+        timer_period = 0.1
+        self.timer = self.create_timer(timer_period, self.timer_callback)
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
         # Create VL53L0X object
@@ -59,7 +61,6 @@ class RobotController(Node):
         if self.ack_received:
             print("sending message now")
             self.ser.write(command.encode())
-            time.sleep(1)
             self.ser.flush()
             self.ack_received = False  # Reset ACK status awaiting next ACK.
             self.get_logger().info(f"Sent command: {command.strip()}")
