@@ -13,35 +13,40 @@ def clear_uart_buffer():
     while uart.in_waiting > 0:
         uart.read(uart.in_waiting)
 
+message_buffer = ''  # Initialize a buffer for accumulating message data
+
 # Main loop
 while True:
-    data = uart.read(32)  # Read up to 32 bytes
-    if data is not None:
-        message = ''.join([chr(b) for b in data])  # Convert bytes to string
+    data = uart.read(uart.in_waiting or 32)
+    if data:
+        message_buffer += data.decode('utf-8', 'ignore')
+
+    while '<' in message_buffer and '>' in message_buffer:
+        start_index = message_buffer.find('<') + 1
+        end_index = message_buffer.find('>', start_index)
+        message = message_buffer[start_index:end_index].strip()
+        message_buffer = message_buffer[end_index+1:]
         print("Received:", message)
         
-        # Handle the message
-        if "f" in message:
+        # Handle the message using exact matches
+        if message == 'f':
             print("Moving forward")
             wheel.forward()
-        elif "b" in message:
+        elif message == 'b':
             print("Moving in reverse")
             wheel.reverse()
-        elif "l" in message:
+        elif message == 'l':
             print("Left turn")
             wheel.turn_left()
-        elif "r" in message:
+        elif message == 'r':
             print("Right turn")
             wheel.turn_right()
-        elif "a" in message:
+        elif message == 'a':
             print("Alarm")
             wheel.stop()
             alarm.activate_alarm(2)
-        else:
+        elif message == 's':
             print("Stop")
             wheel.stop()
 
-        # Clear any leftover data in the UART buffer
-        clear_uart_buffer()
-        
     time.sleep(0.1)  # Small delay to prevent overwhelming the CPU
