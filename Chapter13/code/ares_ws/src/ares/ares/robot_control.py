@@ -41,7 +41,7 @@ class RobotController(Node):
         self.mqtt_client.loop_start()
         
         # Embedding the admin password (not recommended for production use)
-        password = 'oFc2327'
+        password = 'adminpassword'
         command = 'chmod a+rw /dev/serial0'
 
         # Using echo to send the password to sudo -S
