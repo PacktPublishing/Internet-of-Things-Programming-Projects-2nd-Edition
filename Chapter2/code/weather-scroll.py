@@ -1,5 +1,4 @@
 import requests
-import json
 from sense_emu import SenseHat
 import time
 

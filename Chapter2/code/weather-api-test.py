@@ -1,5 +1,4 @@
 import requests
-import json
 
 url = "https://api.openweathermap.org/data/2.5/weather"
 api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
