@@ -8,8 +8,8 @@ from buzzer import activate_buzzer
 SSID = "MyNetwork"
 WIFI_PASSWORD = "xxxxxxxxxxxxx"
 
-MQTT_SERVER = "driver.cloudmqtt.com"
-MQTT_PORT = 18915
+mqtt_server = 'codfish.rmq.cloudamqp.com'
+mqtt_port = 1883  # Default MQTT port
 USERNAME = "username"
 MQTT_PASSWORD = "password"
 DEVICE_ID = "IoTAlarmModule"

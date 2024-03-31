@@ -5,8 +5,8 @@ import _thread
 from umqtt.simple import MQTTClient
 from buzzer import activate_buzzer
 
-SSID = "xxxxxxxxxx"
-PASSWORD = "xxxxxxxxxxxx"
+SSID = "SSID"
+PASSWORD = "password"
 MQTT_SERVER = "broker.mqtthq.com"
 MQTT_PORT = 1883
 
@@ -29,6 +29,7 @@ def connect_wifi():
 def sub_iotalarm(topic, msg):
     print((topic, msg))
     if topic == b'IoTAlarm' and msg == b'buzzer':
+        print("buzzer is detected")
         activate_buzzer()
 
 def motion_handler(pin):

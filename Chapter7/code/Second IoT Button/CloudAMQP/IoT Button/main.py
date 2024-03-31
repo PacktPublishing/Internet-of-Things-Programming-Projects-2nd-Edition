@@ -6,19 +6,19 @@ from buzzer import play_notes
 import ssd1306
 import _thread
 
-SSID = "MyNetwork"
-WIFI_PASSWORD = "xxxxxxxxxxxxx"
+SSID = "Apollo"
+WIFI_PASSWORD = "ad2008-ad2022"
 
-led = machine.Pin(15, machine.Pin.OUT)
+led = machine.Pin(16, machine.Pin.OUT)
 button = Pin(0, Pin.IN, Pin.PULL_UP)
 switch = Pin(1, Pin.IN, Pin.PULL_UP)
 previous_switch_state = switch.value()
 
 
-MQTT_SERVER = "driver.cloudmqtt.com"
-MQTT_PORT = 18915
-USERNAME = "username"
-PASSWORD = "password"
+MQTT_SERVER = "codfish.rmq.cloudamqp.com"
+MQTT_PORT = 1883
+USERNAME = "zbqtrhqa:zbqtrhqa"
+PASSWORD = "1k1y20xoK00lLm5Wt5qq3YG_DQ99abLO"
 DEVICE_ID = "IoTAlarmSystem"
 last_message = ""
 

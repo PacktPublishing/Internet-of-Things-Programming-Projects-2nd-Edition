@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: micropython-ssd1306
+Version: 0.3
+Summary: ssd1306 module for MicroPython
+Home-page: https://github.com/stlehmann/micropython-ssd1306
+Author: Stefan Lehmann
+Author-email: stlm@posteo.de
+License: MIT
+
