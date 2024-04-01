@@ -8,7 +8,7 @@ class TrafficMap:
         self.longitude = longitude
         self.zoom = zoom
         self.size = "500,325"
-        self.api_key = "i6HteDYdSylP4rfJr8JdLxCYpnbPKSeu"
+        self.api_key = "xxxxxxxxxxxxxxxxxxxxx"
 
     def get_traffic_map(self):
         base_url = "http://www.mapquestapi.com/staticmap/v5/map"
