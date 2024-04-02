@@ -32,7 +32,7 @@ class TrafficMap:
                 f.write(response.content)
             return "images/traffic_map.png"
         else:
-            return "images/blank.png"
+            return "images/error.png"
 
 
 if __name__ == "__main__":
