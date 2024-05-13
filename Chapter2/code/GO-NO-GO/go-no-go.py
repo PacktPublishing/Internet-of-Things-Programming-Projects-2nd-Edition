@@ -1,5 +1,4 @@
 import requests
-import json
 import time
 from green_checkmark import GreenCheck
 from flashing_x import RedXAnimation
