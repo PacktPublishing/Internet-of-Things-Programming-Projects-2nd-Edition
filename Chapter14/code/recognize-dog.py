@@ -1,19 +1,17 @@
 import cv2
 import numpy as np
 
-# Load YOLO
+# Load YOLO model weights and configuration
 net = cv2.dnn.readNet("YOLO/yolov4.weights", "YOLO/yolov4.cfg")
+
+# Initialize an empty list for class names (if needed elsewhere in the code)
 classes = []
+
+# Get the names of all the layers in the network
 layer_names = net.getLayerNames()
 
 # Get output layers using safe indexing
 output_layer_indices = net.getUnconnectedOutLayers()
-
-# Load YOLO
-net = cv2.dnn.readNet("YOLO/yolov4.weights", "YOLO/yolov4.cfg")
-layer_names = net.getLayerNames()
-output_layer_indices = net.getUnconnectedOutLayers()
-
 output_layers = [layer_names[i - 1] for i in output_layer_indices]
 
 
