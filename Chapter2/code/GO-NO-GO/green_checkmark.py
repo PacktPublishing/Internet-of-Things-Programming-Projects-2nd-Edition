@@ -19,13 +19,13 @@ class GreenCheck:
     def __init__(self, rotation=0):
         
         self.sense = SenseHat()
-        self.sense.set_rotation(270)
+        self.sense.set_rotation(rotation)
 
     
     def display(self):
         self.sense.set_pixels(self.check_mark_pixels)
    
 
-if __name__ == "__main__":        
-    greenCheck = GreenCheck()
-    greenCheck.display()
+if __name__ == "__main__":
+ greenCheck = GreenCheck(rotation = 270)
+ greenCheck.display()

@@ -30,6 +30,15 @@ while True:
         Volume: {quote['06. volume'] } \
         Change: {quote['09. change'] }"
 
+        ticker_info = (
+              f"{quote['01. symbol']} "
+              f"Price: {quote['05. price']} ")
+ 
+        ticker_info += (
+            f"Volume: {quote['06. volume']} "
+            f"Change: {quote['09. change']}"
+        )
+
         last_ticker_info = ticker_info
 
         sense.show_message(ticker_info, scroll_speed=0.05, text_colour=[255, 255, 255])

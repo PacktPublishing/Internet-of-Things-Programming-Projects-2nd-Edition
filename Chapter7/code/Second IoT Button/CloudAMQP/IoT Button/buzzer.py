@@ -1,7 +1,7 @@
 from machine import Pin, PWM
 import utime
 
-BUZZER_PIN = 15
+BUZZER_PIN = 16
 buzzer = PWM(Pin(BUZZER_PIN))
 
 def play_notes(

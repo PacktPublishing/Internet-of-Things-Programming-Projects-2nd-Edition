@@ -16,7 +16,7 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, cs, rst, 915.0)
 # Initialize DHT22
 dht_sensor = adafruit_dht.DHT22(board.GP4)
 
-print("Sending temperature and humidity data every 60 seconds")
+print("Sending temperature and humidity data every 120 seconds")
 
 while True:
     try:

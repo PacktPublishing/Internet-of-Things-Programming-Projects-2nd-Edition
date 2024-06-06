@@ -41,18 +41,7 @@ Y, O, R, Y, Y, R, O, Y,
 B, Y, O, R, R, O, Y, B
 ]
 
-frame4 = [
-O, R, R, Y, Y, R, R, O,
-R, Y, O, O, O, O, Y, R,
-Y, O, B, B, B, B, O, Y,
-O, B, B, B, B, B, B, O,
-O, B, B, B, B, B, B, O,
-Y, O, B, B, B, B, O, Y,
-R, Y, O, O, O, O, Y, R,
-O, R, R, Y, Y, R, R, O
-]
-
-frames = [frame1, frame2, frame3, frame4]
+frames = [frame1, frame2, frame3]
 
 while True:
     for frame in frames:

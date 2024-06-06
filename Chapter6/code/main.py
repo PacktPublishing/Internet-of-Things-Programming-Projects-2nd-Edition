@@ -1,3 +1,4 @@
+#Please note that code may be slightly different than the book due to code improvements
 import machine
 import utime
 import network

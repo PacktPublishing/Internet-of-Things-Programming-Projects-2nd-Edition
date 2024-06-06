@@ -3,7 +3,7 @@ from time import sleep
 
 # Initialize components
 pir = MotionSensor(23)
-button = Button(7)
+button = Button(20)
 buzzer = Buzzer(21)
 
 # State variable

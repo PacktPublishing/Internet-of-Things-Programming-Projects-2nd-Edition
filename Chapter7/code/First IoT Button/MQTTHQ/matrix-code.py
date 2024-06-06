@@ -19,8 +19,7 @@ def buttonA_pressFor():
 btnA.pressFor(1, buttonA_pressFor)
 
 
-m5mqtt = M5mqtt('IoTMatrix', 'broker.mqtthq.com', 1883, '', '', 300)
-#m5mqtt = M5mqtt('IoTMatrix', 'driver.cloudmqtt.com', 18915, 'username', 'password', 300) #for CloudMQTT
+m5mqtt = M5mqtt('IoTMatrix', 'codfish.rmq.cloudamqp.com', 1883, '', '', 300)
 
 m5mqtt.subscribe(str('IoTAlarm'), cb_IoTAlarm)
 rgb.setColorAll(0x00cccc)

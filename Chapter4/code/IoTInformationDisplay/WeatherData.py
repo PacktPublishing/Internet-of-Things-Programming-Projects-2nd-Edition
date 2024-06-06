@@ -25,12 +25,15 @@ class WeatherData:
             self.wind_speed = wind["speed"]
             self.icon = weather[0]["icon"]
 
+    def get_conditions(self):
+        return self.weather_conditions
+    
+    def get_temperature(self):
+        return str(int(self.temperature))
+
     def get_weather_conditions_icon(self):
         return f"http://openweathermap.org/img/wn/{self.icon}.png"
 
-    def get_temperature(self):
-        return str(int(self.temperature))
-    
     def get_wind_temp_factor(self):
         if self.temperature < 0:
             temp_factor = 0
@@ -54,10 +57,7 @@ class WeatherData:
             return "images/short-shirt.png"
         else:
             return "images/shorts.png"
-    
-    def get_conditions(self):
-        return self.weather_conditions
-    
+      
 if __name__=="__main__": 
     weather = WeatherData('Toronto')
     print(weather.get_temperature())

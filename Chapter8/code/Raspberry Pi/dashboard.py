@@ -14,8 +14,8 @@ import paho.mqtt.client as mqtt
 from kivy_garden.mapview import MapView, MapMarkerPopup
 from buzzer import BuzzerMelody
 
-MQTT_SERVER = "driver.cloudmqtt.com"
-MQTT_PORT = 18915
+MQTT_SERVER = "codfish.rmq.cloudamqp.com"
+MQTT_PORT = 1883
 USERNAME = "xxxxxxx" 
 MQTT_PASSWORD = "xxxxxxxxxx"
 DEVICE_ID = "IoTAlarmDashboard"

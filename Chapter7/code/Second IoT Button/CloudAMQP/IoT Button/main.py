@@ -6,8 +6,8 @@ from buzzer import play_notes
 import ssd1306
 import _thread
 
-SSID = "Apollo"
-WIFI_PASSWORD = "ad2008-ad2022"
+SSID = "SSID"
+WIFI_PASSWORD = "wifi-password"
 
 led = machine.Pin(16, machine.Pin.OUT)
 button = Pin(0, Pin.IN, Pin.PULL_UP)

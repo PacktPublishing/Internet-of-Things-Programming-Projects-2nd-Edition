@@ -7,8 +7,7 @@ symbol = 'AAPL'
 base_url = 'https://www.alphavantage.co/query?'
 function = 'GLOBAL_QUOTE'
 
-complete_url = f'{base_url}function={function}\
-&symbol={symbol}&apikey={api_key}'
+complete_url = f'{base_url}function={function} &symbol={symbol}&apikey={api_key}'
 
 response = requests.get(complete_url)
 data = response.json()

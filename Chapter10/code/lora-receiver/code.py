@@ -1,3 +1,4 @@
+#Please note that code may be slightly different than the book due to code improvements
 import time
 import board
 import busio
@@ -37,8 +38,8 @@ flash_led(4, 1)
 
 pool = socketpool.SocketPool(wifi.radio)
 
-MQTT_SERVER = "driver.cloudmqtt.com"
-MQTT_PORT = 18756
+MQTT_SERVER = "codfish.rmq.cloudamqp.com"
+MQTT_PORT = 1833
 USERNAME = "xxxxxxx"
 PASSWORD = "xxxxxxx"
 DEVICE_ID = "LoRaReceiver"
